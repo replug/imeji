@@ -120,5 +120,8 @@ public class ViewCollectionBean extends CollectionBean
 		return this.getCollection().getMetadata().getDescription().replaceAll("\n", "<br/>");
 	}
 
-
+	public int getMDEntrySize() {
+		return this.getProfile().getStatements().size();
+	}
+	
 }

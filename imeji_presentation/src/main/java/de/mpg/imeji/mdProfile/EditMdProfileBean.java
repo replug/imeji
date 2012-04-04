@@ -26,6 +26,7 @@ public class EditMdProfileBean extends MdProfileBean implements Serializable
     private CollectionSessionBean collectionSession;
     private ProfileController profileController;
     private boolean init = false;
+    private boolean ingest = false;
     private String colId = null;
     private CollectionImeji collection = null;
     
@@ -48,7 +49,12 @@ public class EditMdProfileBean extends MdProfileBean implements Serializable
     	{
     		readUrl();
         	
-        	if (init)  
+    		if (ingest)
+    		{
+    			this.initBeanObjects(collectionSession.getProfile());
+    		}
+    		
+    		if (init)  
             {
                 if (this.getId() != null)
                 {
@@ -93,13 +99,23 @@ public class EditMdProfileBean extends MdProfileBean implements Serializable
     		colId = col;
     	}
     	init = UrlHelper.getParameterBoolean("init");
+    	ingest = UrlHelper.getParameterBoolean("ingest");
     }
     
     public String cancel() throws IOException
     {
     	Navigation navigation = (Navigation) BeanHelper.getApplicationBean(Navigation.class);
     	if (colId != null)
-    		FacesContext.getCurrentInstance().getExternalContext().redirect(navigation.getApplicationUri() + "/collection/" + colId + "/details?init=1");
+    	{
+    		if (!ingest)
+    		{
+    			FacesContext.getCurrentInstance().getExternalContext().redirect(navigation.getApplicationUri() + "/collection/" + colId + "/details?init=1");
+    		}
+    		else
+    		{
+    			FacesContext.getCurrentInstance().getExternalContext().redirect(navigation.getApplicationUri() + "/import/mdprofiles/collection/" + colId + "");
+    		}
+    	}
         return "";
     }
     

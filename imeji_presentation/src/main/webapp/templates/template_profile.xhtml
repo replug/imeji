@@ -36,6 +36,13 @@
 								<h:commandLink  action="#{FormularBean.addStatement}"><h:outputText value="#{lbl.profile_start_new} "/></h:commandLink>
 							</h:panelGroup>
 							<h:outputText value=" #{lbl.or_small} " styleClass="full_area0_p8 huge_marginLExcl"/>
+									
+							<h:panelGroup styleClass="full_area0_p8 huge_marginLExcl">								
+								<h:outputLink value="#{Navigation.applicationUrl}import/mdprofiles/collection/#{FormularBean.colId}?init=1"><h:outputText value="#{lbl.profile_start_new_import}"/></h:outputLink>
+							</h:panelGroup>
+							
+							<h:outputText value=" #{lbl.or_small} " styleClass="full_area0_p8 huge_marginLExcl"/>
+							
 							<h:panelGroup styleClass="full_area0_p8 huge_marginLExcl" >
 								<h:outputText value=" #{lbl.profile_use_template} "/>
 								<span class="xTiny_marginLExcl">

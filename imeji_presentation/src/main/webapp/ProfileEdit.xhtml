@@ -64,9 +64,14 @@
 		
 		<h:outputText styleClass="seperator void" />
 		
-		
 		<h:outputLink id="lnkUploadImages" styleClass="free_area0" value="#{Navigation.applicationUrl}upload/collection/#{EditMdProfileBean.colId}?init=1" rendered="#{ViewCollectionBean.editable}">
 			<h:outputText value="#{lbl.upload_images}"></h:outputText>
+		</h:outputLink>
+		
+		<h:outputText styleClass="seperator void" rendered="#{ViewCollectionBean.MDEntrySize > 0}" />
+		
+		<h:outputLink id="lnkImportIngestMDProfile" styleClass="free_area0" value="#{Navigation.applicationUrl}import/mdprofiles/collection/#{EditMdProfileBean.colId}?init=1" rendered="#{ViewCollectionBean.MDEntrySize > 0}" >
+			<h:outputText value="#{lbl.import_ingest_mdprofiles}"></h:outputText>
 		</h:outputLink>
 	</ui:define>
 		

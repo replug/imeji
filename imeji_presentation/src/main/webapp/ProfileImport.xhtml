@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j" 
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:remove>
+	<!--
+
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+</ui:remove>
+
+<body>
+	<ui:composition template="templates/template_collection.xhtml">
+
+		<ui:param name="headline" value="#{lbl.upload_profile} #{UploadBean.collection.metadata.title}"/>		
+		
+		<ui:define name="contentMenu">
+			<h:outputLink id="lnkViewCollectionStart" styleClass="free_area0" value="#{Navigation.applicationUri}#{UploadBean.collection.id.path}" rendered="true">
+				<h:outputText value="#{lbl.collection_home}"/>
+			</h:outputLink>			
+			
+			<h:outputText styleClass="seperator void" />
+			
+			<h:outputLink id="lnkViewCollectionAllImages" styleClass="free_area0" value="#{Navigation.applicationUri}/images#{UploadBean.collection.id.path}?q=" rendered="#{ViewCollectionBean.size > 0}">
+				<h:outputText value="#{lbl.view_images}"/>
+			</h:outputLink>
+			
+			<h:outputText styleClass="seperator void" rendered="#{ViewCollectionBean.size > 0}"/>
+			
+			<h:outputLink id="lnkViewCollectionDetail" styleClass="free_area0" value="#{Navigation.applicationUri}#{UploadBean.collection.id.path}/details?init=1" rendered="true">
+				<h:outputText value="#{lbl.collection_metadata}"/>
+			</h:outputLink>
+			
+			<h:outputText styleClass="seperator void" />
+			
+			<h:outputText styleClass="free_area0" value="#{lbl.import_ingest_mdprofiles}"></h:outputText>
+			
+		</ui:define>
+
+		
+		<ui:define name="mainContent">
+			
+			<h:panelGroup layout="block" styleClass="full_area0 itemList" style="border-bottom-width:0 !important;">
+				<ui:include src="./include/History.xhtml"></ui:include>
+			</h:panelGroup>
+			
+			<h:panelGroup styleClass="full_area0_p8" rendered="#{empty FormularBean.statements}">
+				<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+				
+				<!-- Load plupload and all it's runtimes and finally the jQuery queue widget -->
+				<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+				<script type="text/javascript" src="#{Navigation.applicationUrl}resources/eSciDoc_JavaScript/plupload/plupload.full.js"></script>
+				<script type="text/javascript" src="#{Navigation.applicationUrl}resources/eSciDoc_JavaScript/plupload/jquery.plupload.queue.js"></script>
+				
+				<script>
+			
+					$(function() {
+						// Setup html5 version
+						$("#uploader").pluploadQueue({
+							// General settings
+							runtimes : 'html5,flash,silverlight,html4,xml',
+							url : location.pathname  + "?xml=1",
+							//max_file_size : '10mb',
+							multi_selection : true,
+							//chunk_size : '1mb',
+							unique_names : false,
+							flash_swf_url : '<h:outputText value="#{Navigation.applicationUrl}"/>resources/eSciDoc_JavaScript/plupload/plupload.flash.swf',
+							silverlight_xap_url : '<h:outputText value="#{Navigation.applicationUrl}"/>resources/eSciDoc_JavaScript/plupload/plupload.silverlight.xap',
+							filters : [{
+								title : "Xml files", 
+								extensions : "xml"}
+							/*  extensions : "xml,txt,xls"}*/
+								
+							],
+					
+							});
+					});
+					
+					function getUploadTitle()
+					{
+						return '<h:outputText value="#{lbl.upload_title}"/>';
+					}				
+					function getUploadDescription()
+					{
+						return '<h:outputText value="#{lbl.upload_description}"/>';
+					}
+					function getUploadFilename()
+					{
+						return '<h:outputText value="#{lbl.filename}"/>';
+					}
+					function getUploadStatus()
+					{
+						return '<h:outputText value="#{lbl.status}"/>';
+					}
+					function getUploadSize()
+					{
+						return '<h:outputText value="#{lbl.size}"/>';
+					}
+					function getUploadAddFiles()
+					{
+						return '<h:outputText value="#{lbl.upload_add_files}"/>';
+					}
+					function getUploadStart()
+					{
+						return '<h:outputText value="#{lbl.upload_start}"/>';
+					}
+					function getDragHere()
+					{
+						return '<h:outputText value="#{lbl.upload_drag_files_here}"/>';
+					}
+					
+				</script>
+				
+				<div class="full_area0 small_marginLExcl infoPage">
+					<br/>
+					<div class="half_area0_p8 listBackground" style="width:41.15em;">
+						<div id="uploader" class="half_area0_p0">
+							Your browser doens't support native upload!<br/>
+							Please use HTML5 compatible browser (Firefox 4.x, Safari 4, Chrome) or download following tools:<br/>
+						<a href="http://www.microsoft.com/germany/silverlight/downloads.aspx" target="_blank">
+							Download Siverlight
+						</a>
+						<br/>
+						or
+						<br/>
+						<a href="http://get.adobe.com/de/flashplayer/download/" target="_blank">
+							Download Flash
+						</a></div>
+					</div>
+					
+					<div class="messageError" >	
+						<br />
+						<h:outputText value ="#{UploadBean.fNum} files failed:" rendered="#{UploadBean.mdfNum > 0}"/><br />
+						<a4j:repeat id="fFile" var="fFile" value="#{UploadBean.fFiles}" rowKeyVar="indexf">
+							<h:outputText value="#{fFile}" /><br />
+						</a4j:repeat>
+						<br />
+						<h:outputText value ="#{UploadBean.mdfNum} meta data profile(s) failed:" rendered="#{UploadBean.mdfNum > 0}"/><br />
+						<a4j:repeat id="mdfFile" var="mdfFile" value="#{UploadBean.mdfFiles}" rowKeyVar="indexmdf">
+							<h:outputText value="#{mdfFile}" /><br />
+						</a4j:repeat>
+					</div>
+					<div >
+						<br />
+						<h:outputText value="#{UploadBean.sNum} files uploaded successfully:" rendered="#{UploadBean.mdsNum > 0}"/><br />
+						<a4j:repeat id="sFile" var="sFile" value="#{UploadBean.sFiles}" rowKeyVar="indexs">
+							<h:outputText value="#{sFile}" /><br />
+						</a4j:repeat>
+						<br />
+						<h:outputText value ="#{UploadBean.mdsNum} meta data profile(s) successfully loaded:" rendered="#{UploadBean.mdsNum > 0}"/><br />
+						<a4j:repeat id="mdsFile" var="mdsFile" value="#{UploadBean.mdsFiles}" rowKeyVar="indexmds">
+							<h:outputText value="#{mdsFile}" /><br />
+						</a4j:repeat>	
+					</div>
+					
+					<h:panelGroup styleClass="full_area0_p8 huge_marginLExcl" rendered="#{UploadBean.mdsNum > 0}">			
+						<h:outputText value=" #{lbl.profile_use_template} "/>
+						<span class="xTiny_marginLExcl">
+							<h:selectOneMenu value="#{UploadBean.template}" onchange="getElementById('formular:changeTemplate').click();" valueChangeListener="#{UploadBean.templateListener}">
+								<f:selectItems value="#{UploadBean.profilesMenu}"/>
+							</h:selectOneMenu>
+							<h:commandButton id="changeTemplate" action="#{UploadBean.changeTemplate}" style="visibility:hidden"/>
+							
+						</span>
+					</h:panelGroup>
+					
+				</div>
+				
+				<div class="full_area0 formButtonArea">			
+					<h:commandButton action="#{UploadBean.loadProfile}" value="#{lbl.view_md_profile}" styleClass="free_area1_p8 activeButton" rendered="#{UploadBean.mdsNum > 0}"/>				
+					<h:commandButton action="#{UploadBean.ingest}" value="#{lbl.ingest}" styleClass="free_area1_p8 activeButton" rendered="#{UploadBean.mdsNum > 0}"/>							
+				</div>				
+
+				<div>
+					<br /> <h:outputText value="#{UploadBean.ingestMessage}" rendered="#{not empty UploadBean.ingestMessage}"/><br /> <br />
+					<h:outputText value="#{UploadBean.ingestedEntriesSize} entry successfully ingested!" rendered="#{UploadBean.ingestedEntriesSize == 1 }"/><br />
+					<h:outputText value="#{UploadBean.ingestedEntriesSize} entries successfully ingested!" rendered="#{UploadBean.ingestedEntriesSize > 1 }"/><br />
+					<!-- <a4j:repeat id="ingestedEntries" var="ingestedEntries" value="#{UploadBean.ingestedEntries}" rowKeyVar="indexIngesEntries">
+						<h:outputText value="#{ingestedEntries}" /><br />
+					</a4j:repeat> -->
+				</div>
+			</h:panelGroup>
+
+			<br />
+					
+			<script>
+						// Implements a single radio behovior over many radio, used by "use as caption"
+						function unSelectUnique(index)
+						{
+							var size = <h:outputText value="#{FormularBean.size}"/>;
+						    for(var i = 0; i &lt; size; i++)
+					        {
+					            if (index != i)
+						    	{
+					            	document.getElementById('formular:profile:' + i + ':uniqueSelect').checked= false;
+					            	document.getElementById('formular:profile:' + i + ':radioDescription:0').checked= false;
+						    	}
+					            else if (document.getElementById('formular:profile:' + i + ':uniqueSelect').checked )
+					            {
+					            	document.getElementById('formular:profile:' + i + ':uniqueSelect').checked= false;
+					            	document.getElementById('formular:profile:' + i + ':radioDescription:0').checked= false;
+					            }
+					            else
+					            {
+					            	document.getElementById('formular:profile:' + i + ':uniqueSelect').checked= true;
+					            	document.getElementById('formular:profile:' + i + ':radioDescription:0').checked= true;
+					            }
+					        }
+						}
+				</script>		
+		</ui:define>
+		
+	</ui:composition>
+
+</body>
+</html>
+
+
+
+
+

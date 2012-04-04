@@ -62,6 +62,12 @@
 				<h:outputLink id="lnkUploadImages" styleClass="free_area0" value="#{Navigation.applicationUrl}upload#{ViewCollectionBean.collection.id.path}?init=1" rendered="#{ViewCollectionBean.editable and ViewCollectionBean.collection.properties.status != 'WITHDRAWN'}">
 					<h:outputText value="#{lbl.upload_images}"></h:outputText>
 				</h:outputLink>
+				
+				<h:outputText styleClass="seperator void" rendered="#{ViewCollectionBean.MDEntrySize > 0}" />
+		
+				<h:outputLink id="lnkImportIngestMDProfile" styleClass="free_area0" value="#{Navigation.applicationUrl}import/mdprofiles#{ViewCollectionBean.collection.id.path}?init=1" rendered="#{ViewCollectionBean.MDEntrySize > 0}" >
+					<h:outputText value="#{lbl.import_ingest_mdprofiles}"></h:outputText>
+				</h:outputLink>
 			</ui:define>
 			
 			
