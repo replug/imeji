@@ -290,5 +290,16 @@
 	    <converter-class>de.mpg.imeji.converter.DoubleConverter</converter-class>
 	</converter>
 	
+	<managed-bean>
+		<managed-bean-name>IngestBean</managed-bean-name>
+		<managed-bean-class>de.mpg.imeji.ingest.IngestBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>LoadIngestBean</managed-bean-name>
+		<managed-bean-class>de.mpg.imeji.ingest.LoadIngestBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>

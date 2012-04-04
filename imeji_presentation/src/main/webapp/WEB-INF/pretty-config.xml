@@ -205,6 +205,12 @@
 		<view-id>/jsf/ProfileEdit.xhtml</view-id>
 	</url-mapping>
 	
+	<url-mapping id="importProfiles">
+		<pattern value="/import/mdprofiles/collection/#{UploadBean.id}"></pattern>
+		<view-id>/jsf/ProfileImport.xhtml</view-id>
+		<action onPostback="false">#{UploadBean.status}</action>
+	</url-mapping>
+	
 	<!-- Search Pages -->
 	<url-mapping id="forImages">
 		<pattern value="/search"></pattern>
@@ -222,11 +228,5 @@
 		<pattern value="/help"></pattern>
 		<view-id>/jsf/Help.xhtml</view-id>
 	</url-mapping>
-	
-	<url-mapping id="userPage">
-		<pattern value="/user"></pattern>
-		<view-id>/jsf/User.xhtml</view-id>
-	</url-mapping>
-	
 
 </pretty-config>
