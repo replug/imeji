@@ -438,7 +438,7 @@ public class IngestBean
 				continue;
 			} else {
 				ingestedEntries.add("Counter_"+(++counter)+"_"+mdo.getProjectName()+"_"+mdo.getProfileName()+"_"+image.getFilename());
-				logger.info("Could ingest meta data for image file: "+image.getFilename());
+				logger.info("Succeed: ingest meta data for image file: "+image.getFilename());
 			}
 			MetadataSet mds = image.getMetadataSet();
 			List<ImageMetadata> imd = (List<ImageMetadata>) this.ingestHelper.mappingFromXmlMDObjectToImageMD(mdo,(ArrayList<Statement>) sts);			

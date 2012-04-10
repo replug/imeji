@@ -79,7 +79,7 @@ public class Navigation implements Serializable
 
     public Navigation() throws Exception
     {
-        frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.framework.ur");
+        frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
         applicationUrl = PropertyReader.getProperty("escidoc.imeji.instance.url");
     }
 
