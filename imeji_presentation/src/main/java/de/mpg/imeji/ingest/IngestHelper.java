@@ -33,20 +33,40 @@ package de.mpg.imeji.ingest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
+import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 
 import thewebsemantic.LocalizedString;
 
 import de.mpg.jena.util.MetadataFactory;
+import de.mpg.jena.vo.ComplexType.ComplexTypes;
+import de.mpg.jena.vo.Image;
+import de.mpg.jena.vo.Image.Visibility;
 import de.mpg.jena.vo.ImageMetadata;
+import de.mpg.jena.vo.MetadataSet;
+import de.mpg.jena.vo.Organization;
+import de.mpg.jena.vo.Person;
+import de.mpg.jena.vo.Properties;
+import de.mpg.jena.vo.Properties.Status;
 import de.mpg.jena.vo.Statement;
+import de.mpg.jena.vo.complextypes.ConePerson;
 import de.mpg.jena.vo.complextypes.Text;
 
 /**
@@ -483,4 +503,467 @@ public class IngestHelper
 		return string.replace(" ", "%20");
 	}
 
+	public ArrayList<Image> fetchGenericFromXmlToImageObjectList(String xmlFilename) {
+		ArrayList<Image> zo = null;
+		File currentDir = new File (".");
+		String path = null;
+	     
+		SAXBuilder builder = null;
+    	File xmlFile = null;	
+    	    	
+ 
+    	try{
+        	path = new String(currentDir.getCanonicalPath());
+        	path = path + "\\dump\\";
+        	builder = new SAXBuilder();
+        	xmlFile = new File(path + xmlFilename);
+			Document document = (Document) builder.build(xmlFile);
+
+			// gets the collection name
+			Element rootNode = document.getRootElement();
+			
+			// gets meta data structure
+			@SuppressWarnings("unchecked")
+			List<Element> list = rootNode.getChildren();		
+			
+			HashMap<String, String>namespaces = new HashMap<String, String>();
+			namespaces.put(rootNode.getNamespaceURI(), rootNode.getNamespacePrefix());
+			@SuppressWarnings("unchecked")
+			List<Namespace> listNamespace = rootNode.getAdditionalNamespaces();
+			
+			for (Namespace ns : listNamespace) {				
+				namespaces.put(ns.getURI(),ns.getPrefix());
+			}
+ 
+			zo = new ArrayList<Image>();
+			for (int i=0; i< list.size(); i++) {
+				// gets the meta data
+				Element elem = list.get(i);
+				Image img = new Image();
+				if(elem.getChildren().isEmpty()) {
+					continue;
+				} else {
+					fetch(elem,img,"");
+				}
+				zo.add(img);
+            }
+			System.out.println("");
+			
+    	 }catch(IOException io){
+    		System.out.println(io.getMessage());
+    	 }catch(JDOMException jdomex){
+    		System.out.println(jdomex.getMessage());
+    	}
+    	 
+    	return zo;
+	}
+	
+	public ArrayList<Image> fetchGenericFromXmlToImageObjectList(InputStream xmlFileStream) {
+		ArrayList<Image> zo = null;
+    	try{
+
+			Document document = (Document) this.builder.build(xmlFileStream);
+			// gets the collection name
+			Element rootNode = document.getRootElement();
+			
+			// gets meta data structure
+			@SuppressWarnings("unchecked")
+			List<Element> list = rootNode.getChildren();		
+			
+			HashMap<String, String>namespaces = new HashMap<String, String>();
+			namespaces.put(rootNode.getNamespaceURI(), rootNode.getNamespacePrefix());
+			@SuppressWarnings("unchecked")
+			List<Namespace> listNamespace = rootNode.getAdditionalNamespaces();
+			
+			for (Namespace ns : listNamespace) {				
+				namespaces.put(ns.getURI(),ns.getPrefix());
+			}
+ 
+			zo = new ArrayList<Image>();
+			for (int i=0; i< list.size(); i++) {
+				// gets the meta data
+				Element elem = list.get(i);
+				Image img = new Image();
+				if(elem.getChildren().isEmpty()) {
+					continue;
+				} else {
+					fetch(elem,img,"");
+				}
+				zo.add(img);
+            }
+			System.out.println("");
+			
+    	 }catch(IOException io){
+    		System.out.println(io.getMessage());
+    	 }catch(JDOMException jdomex){
+    		System.out.println(jdomex.getMessage());
+    	}
+    	 
+    	return zo;
+	}
+
+	
+	@SuppressWarnings({ "unused", "unchecked" })
+    private void fetch(Element elem, Image image, String prefix) {
+		// get the id
+
+        List<Attribute> attrs = (List<Attribute>) elem.getAttributes();
+		for (Attribute attribute : attrs) {
+			String attrValue = attribute.getValue();
+			try {
+				image.setId(new URL(attrValue).toURI());
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		Properties properties = new Properties();
+		List<Element> list = (List<Element>) elem.getChildren();
+		for (Element element : list) {
+			String switchCase = element.getName();
+			if(switchCase.equalsIgnoreCase("properties")){
+				List<Element> listProperties = element.getChildren();
+				fetchProperties(listProperties,image);
+			} else if(switchCase.equalsIgnoreCase("collection")) {
+				List<Attribute> attrsColllection = (List<Attribute>) element.getAttributes();
+				for (Attribute attribute : attrsColllection) {
+					String attrValue = attribute.getValue();
+					try {
+						image.setCollection(new URL(attrValue).toURI());
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (URISyntaxException e) {
+						e.printStackTrace();
+					}
+				}
+			} else if(switchCase.equalsIgnoreCase("escidocId")) {
+				String escidocId = element.getValue();
+				image.setEscidocId(escidocId);
+			} else if(switchCase.equalsIgnoreCase("filename")) {
+				String filename = element.getValue();
+				image.setFilename(filename);
+			} else if(switchCase.equalsIgnoreCase("fullImageUrl")) {
+				List<Attribute> attrsFullImageUrl = (List<Attribute>) element.getAttributes();
+				for (Attribute attribute : attrsFullImageUrl) {
+					String attrValue = attribute.getValue();
+					try {
+						image.setFullImageUrl(new URL(attrValue).toURI());
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (URISyntaxException e) {
+						e.printStackTrace();
+					}
+				}
+			} else if(switchCase.equalsIgnoreCase("metadataSet")) {				
+				List<Element> listMetadataSet = element.getChildren();
+				fetchMetadataSet(listMetadataSet,image);
+			} else if(switchCase.equalsIgnoreCase("thumbnailImageUrl")) {
+				List<Attribute> attrsThumbnailImageUrl = (List<Attribute>) element.getAttributes();
+				for (Attribute attribute : attrsThumbnailImageUrl) {
+					String attrValue = attribute.getValue();
+					try {
+						image.setThumbnailImageUrl(new URL(attrValue).toURI());
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (URISyntaxException e) {
+						e.printStackTrace();
+					}
+				}
+			} else if(switchCase.equalsIgnoreCase("visibility")) {
+				List<Attribute> attrsVisibility = (List<Attribute>) element.getAttributes();
+				for (Attribute attribute : attrsVisibility) {
+					String attrValue = attribute.getValue();
+					if(attrValue.contains("visibility/PUBLIC")) {
+						image.setVisibility(Visibility.PUBLIC);
+					} else if(attrValue.contains("visibility/PRIVATE")) {
+						image.setVisibility(Visibility.PRIVATE);
+					} else {
+						image.setVisibility(Visibility.PRIVATE);
+					}
+				}
+			} else if(switchCase.equalsIgnoreCase("webImageUrl")) {
+				List<Attribute> attrsWebImageUrl = (List<Attribute>) element.getAttributes();
+				for (Attribute attribute : attrsWebImageUrl) {
+					String attrValue = attribute.getValue();
+					try {
+						image.setWebImageUrl(new URL(attrValue).toURI());
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (URISyntaxException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+    private void fetchProperties(List<Element> listProperties, Image image) {
+		Properties properties = new Properties();
+		for (Element element : listProperties) {
+			String switchCase = element.getName();
+			if(switchCase.equalsIgnoreCase("createdBy")) {
+                List<Attribute> attrsCreatedBy = (List<Attribute>) element.getAttributes();
+				for (Attribute attribute : attrsCreatedBy) {
+					String attrValue = attribute.getValue();
+					try {
+						properties.setCreatedBy(new URL(attrValue).toURI());
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (URISyntaxException e) {
+						e.printStackTrace();
+					}
+				}
+			} else if(switchCase.equalsIgnoreCase("creationDate")) {
+				
+				String dateString = element.getValue();
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
+				Date creationDate = null;
+                // See if we can parse the output of Date.toString()
+                try {
+                    creationDate = format.parse(dateString);
+                }
+                catch(ParseException pe) {
+                    System.out.println("ERROR: Cannot parse \"" + dateString + "\"");
+                }
+				
+				properties.setCreationDate(creationDate);
+			}  else if(switchCase.equalsIgnoreCase("lastModificationDate")) {
+                String dateString = element.getValue();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
+                Date lastModificationDate = null;
+                // See if we can parse the output of Date.toString()
+                try {
+                    lastModificationDate = format.parse(dateString);
+                }
+                catch(ParseException pe) {
+                    System.out.println("ERROR: Cannot parse \"" + dateString + "\"");
+                }
+                
+                properties.setLastModificationDate(lastModificationDate);
+            } else if(switchCase.equalsIgnoreCase("modifiedBy")) {
+
+                List<Attribute> attrsModifiedBy = (List<Attribute>) element.getAttributes();
+				for (Attribute attribute : attrsModifiedBy) {
+					String attrValue = attribute.getValue();
+					try {
+						properties.setModifiedBy(new URL(attrValue).toURI());
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (URISyntaxException e) {
+						e.printStackTrace();
+					}
+				}
+			} else if(switchCase.equalsIgnoreCase("status")) {
+
+                List<Attribute> attrsSstatus = (List<Attribute>) element.getAttributes();
+                for (Attribute attribute : attrsSstatus) {
+                    String attrValue = attribute.getValue();
+                    if(attrValue.contains("status/PENDING")) {
+                        properties.setStatus(Status.PENDING);
+                    } else if(attrValue.contains("status/RELEASED")) {
+                        properties.setStatus(Status.RELEASED);
+                    } else if(attrValue.contains("status/WITHDRAWN")) {
+                        properties.setStatus(Status.WITHDRAWN);
+                    } else {
+                        properties.setStatus(Status.PENDING);
+                    }
+                }
+            } else if(switchCase.equalsIgnoreCase("version")) {
+                String version = element.getValue();
+                properties.setVersion(Integer.valueOf(version));
+            }
+			
+		}	
+		image.setProperties(properties);
+	}
+
+	@SuppressWarnings({ "unchecked" })
+    private void fetchMetadataSet(List<Element> listMetadataSet, Image image) {
+	    MetadataSet metadataSet = new MetadataSet();
+	    Collection<ImageMetadata> metadatas = new ArrayList<ImageMetadata>();
+	    
+        for (Element element : listMetadataSet) {
+            String elemValue = element.getName();
+            if(elemValue.equalsIgnoreCase("profile")) {
+                List<Attribute> attrsProfile = (List<Attribute>) element.getAttributes();
+                
+                for (Attribute attribute : attrsProfile) {
+                    String attrValue = attribute.getValue();
+                    try {
+                        metadataSet.setProfile(new URL(attrValue).toURI());
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }   
+            } else if(elemValue.equalsIgnoreCase("metadata")) {
+                ImageMetadata imdt = new ImageMetadata();
+                
+                List<Element> attrsMetadata = (List<Element>) element.getChildren();                
+                
+                for (Element elem : attrsMetadata) {
+                    String tagName = elem.getName();
+                    
+                    if(tagName.equalsIgnoreCase("text")) {
+                        String textVal = elem.getValue();                        
+                        Text text = new Text();
+                        text.setText(textVal);
+                        imdt = text;                        
+                    } else if(tagName.equalsIgnoreCase("ns")) {
+                        List<Attribute> attrsNs = (List<Attribute>) elem.getAttributes();
+                        for (Attribute attribute : attrsNs) {
+                            String attrValue = attribute.getValue();
+                            try {
+                                imdt.setNamespace((new URL(attrValue)).toURI());                                
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            } catch (URISyntaxException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } else if(tagName.equalsIgnoreCase("complexTypes")) {
+                        List<Attribute> attrsComplexTypes = (List<Attribute>) elem.getAttributes();
+                        for (Attribute attribute : attrsComplexTypes) {
+                            String attrValue = attribute.getValue();
+                            if(attrValue.contains("complexTypes/PERSON")) {
+                                imdt.setType(ComplexTypes.PERSON);
+                            } else if(attrValue.contains("complexTypes/TEXT")) {
+                                imdt.setType(ComplexTypes.TEXT);
+                            } else if(attrValue.contains("complexTypes/NUMBER")) {
+                                imdt.setType(ComplexTypes.NUMBER);
+                            } else if(attrValue.contains("complexTypes/DATE")) {
+                                imdt.setType(ComplexTypes.DATE);
+                            } else if(attrValue.contains("complexTypes/LICENSE")) {
+                                imdt.setType(ComplexTypes.LICENSE);
+                            } else if(attrValue.contains("complexTypes/GEOLOCATION")) {
+                                imdt.setType(ComplexTypes.GEOLOCATION);
+                            } else if(attrValue.contains("complexTypes/URI")) {
+                                imdt.setType(ComplexTypes.URI);
+                            } else if(attrValue.contains("complexTypes/PUBLICATION")) {
+                                imdt.setType(ComplexTypes.PUBLICATION);
+                            } else {
+                                imdt.setType(ComplexTypes.TEXT);
+                            }
+                        }
+                    } else {
+                        List<Element> attrs = (List<Element>) elem.getChildren();
+                        switch(imdt.getType()) {
+                            case PERSON:
+                                imdt = getImageMetadataAsPerson(attrs,imdt.getNamespace());
+                                break;
+                            case DATE:
+                                imdt = getImageMetadataAsDate(attrs,imdt.getNamespace());
+                                break;
+                            case GEOLOCATION:
+                                //TODO: need to implement                                
+                                break;
+                            case LICENSE:
+                                //TODO: need to implement                                
+                                break;
+                            case NUMBER:
+                                imdt = getImageMetadataAsNumber(attrs,imdt.getNamespace());
+                                break;
+                            case PUBLICATION:
+                                //TODO: need to implement                                
+                                break;
+                            case TEXT:
+                                imdt = getImageMetadataAsText(attrs,imdt.getNamespace());
+                                break;
+                            case URI:
+                                //TODO: need to implement
+                                break;
+                            default:
+                                //TODO: need to implement
+                                break;
+                        }
+                    }
+
+                }
+                metadatas.add(imdt);
+            }
+        }
+	    
+        
+        metadataSet.setMetadata(metadatas);
+        image.setMetadataSet(metadataSet);
+	}
+
+
+	private ImageMetadata getImageMetadataAsNumber(List<Element> attrs, URI namespace)
+    {
+		de.mpg.jena.vo.complextypes.Number number = new de.mpg.jena.vo.complextypes.Number();
+        number.setNamespace(namespace);
+        for (Element attribute : attrs) {
+            String numberValue = attribute.getValue();
+            number.setNumber(Double.valueOf(numberValue));
+        }
+        return number;
+    }
+
+    private ImageMetadata getImageMetadataAsDate(List<Element> attrs, URI namespace)
+    {
+        de.mpg.jena.vo.complextypes.Date date = new de.mpg.jena.vo.complextypes.Date();
+        date.setNamespace(namespace);
+        for (Element attribute : attrs) {            
+            date.setDate(attribute.getValue());
+        }
+        return date;
+    }
+
+    private ImageMetadata getImageMetadataAsText(List<Element> attrs, URI namespace)
+    {
+        Text text = new Text();
+        text.setNamespace(namespace);
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private ImageMetadata getImageMetadataAsPerson(List<Element> attrs, URI namespace)
+    {
+	    ConePerson cp = new ConePerson();
+        Person p = new Person();
+        Organization o = new Organization();        
+
+        cp.setNamespace(namespace);        
+
+        for (Element attribute : attrs) {
+            String attrValue = attribute.getName();
+            if(attrValue.equalsIgnoreCase("alternative-name")) {
+                p.setAlternativeName(attribute.getValue());
+            } else if(attrValue.equalsIgnoreCase("family-name")) {
+                p.setFamilyName(attribute.getValue());
+            } else if(attrValue.equalsIgnoreCase("given-name")) {
+                p.setGivenName(attribute.getValue());
+            } else if(attrValue.equalsIgnoreCase("identifier")) {
+                p.setIdentifier(attribute.getValue());
+            } else if(attrValue.equalsIgnoreCase("organizationalunit")) {
+                List<Element> attrsOrganizationalunit = (List<Element>) attribute.getChildren();
+                for (Element orgaElem : attrsOrganizationalunit)
+                {
+                    String attrOrga = orgaElem.getName();
+                    if(attrOrga.equalsIgnoreCase("title")) {
+                        o.setName(orgaElem.getValue());
+                    } else if(attrOrga.equalsIgnoreCase("city")) {
+                        o.setCity(orgaElem.getValue());
+                    } else if(attrOrga.equalsIgnoreCase("country")) {
+                        o.setCountry(orgaElem.getValue());
+                    } else if(attrOrga.equalsIgnoreCase("description")) {
+                        o.setDescription(orgaElem.getValue());
+                    } else if(attrOrga.equalsIgnoreCase("identifier")) {
+                        o.setIdentifier(orgaElem.getValue());
+                    } else if(attrOrga.equalsIgnoreCase("pos")) {
+                        o.setPos(Integer.valueOf(orgaElem.getValue()));
+                    }
+                }
+                p.getOrganizations().add(o);
+            }
+        }
+
+        cp.setPerson(p);
+        return cp;
+    }
 }
