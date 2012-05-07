@@ -45,65 +45,65 @@
 		 	<ui:include src="include/History.xhtml" />
 		 </h:panelGroup>
 		
-		<div class="full_area0 infoPage">
+		<div class="full_area0 infoPage" align="justify">
 			<!-- Main Content -->
 						
 			<h:panelGroup id="defaultHome" styleClass="half_area0_p8 mainSection" rendered="#{SessionBean.locale != 'de'}">
 				<div class="free_area1" style="padding: 0px 10px 10px 0px; width: 100%;">
-					<p>&nbsp; &nbsp; An eSciDoc application to manage images together with their specific metadata</p>
-					<div class="free_area1" style="border-width: 1px; padding: 0px 15px 15px; width: 90%; border-top-style: groove;">
-						<br/>
-						<p class="background-color: green;" ><b>What is Imeji?</b></p>
-						<p>Imeji is the successor of the software used for the FACES and the DIAMONDS projects.</p> 
-						<p>With Imeji, users can create own image collections and albums. For each collection, a metadata profile can be defined to describe the characteristics of the images within by using texts, numbers, controlled vocabularies, dates, locations, or URIs, giving all metadata elements own labels. This enables complex queries and faceted display of search results.
-		Imeji allows an easy and efficient upload of images through the web browser. Metadata can be edited comfortably for single or multiple images, allowing also efficient maintenance of larger image sets.
-		Subsets of images can be created as albums for re-use in publications. Albums offer stable citations of the subset after released to public.</p>
+					<p><b>Konrad Zuse Internet Archive</b></p>
+					<div class="free_area1" style="border-width: 1px; padding: 0px 15px 15px; width: 90%; border-top-style: groove;"><br/>
+					<p><b>Who was Konrad Zuse?</b></p>
+					<p>Konrad Zuse (1910-1995) built the first program-controlled computing machine in the world. He has brought his inventions, patent outlines, talks and lectures to paper between 1936 and 1995.</p> 
 					</div>
 					<div class="free_area1" style="border-width: 1px; padding: 0px 15px 15px; width: 90%; border-top-style: groove;"><br/>
-					<p><b>How to use Imeji?</b></p>
-					<p>Browse and search is open for everyone. </p>
-					<p>To work with Imeji, to upload images, and to create own collections you need an account. To apply for an account, please send an e-mail to <a href="mailto:faces-support@gwdg.de">the support mailinglist</a>.</p> 
-					<p>The idea and name for Imeji were inspired by discussions with National Institute for Materials Science, Japan.</p>
-					</div> 
+					<p><b>What is the Konrad Zuse Internet Archive?</b></p>
+					<p>This archive offers chronological and subject-based access to the documents spanning the work of Zuse.</p>
+					</div>
+					<div class="free_area1" style="border-width: 1px; padding: 0px 15px 15px; width: 90%; border-top-style: groove;"><br/>
+					<p><b>What is a repository?</b></p>
+					<p>The Konrad Zuse Internet Archive is based on a repository software called Imeji. Imeji is developed by the Max Planck Digital Library and we are contributing to its development.</p>
+					</div>
 					<div class="free_area1" style="border-width: 1px; padding: 12px 15px 15px 10px; width: 90%; border-top-style: groove;">
-					<a href="http://www.mpdl.mpg.de/" target="_blank" style="border: 0px none ;"> <img alt="MPDL logo" src="https://zim02.gwdg.de/repos/faces/trunk/faces/faces_static/images/mpdl.png" style="border: 0px none ;"/> </a> &nbsp;
-					&nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.escidoc.org/" target="_blank" style="border: 0px none ;"> <img alt="eSciDoc logo" src="https://zim02.gwdg.de/repos/faces/trunk/faces/faces_static/images/escidoc_new.png" style="border: 0px none ;"/> </a> </div>
+					<p>supported by<br/><a class="transimage" href="http://www.dfg.de/en" target="_blank" style="border: 0px none ;"> <img alt="DFG logo" src="http://www.zib.de/zuse/Inhalt/Wir/Sponsoren/dfg_logo_blau.png" style="border: 0px none ;"/> </a></p>					
+					<p>powered by<br/><a class="transimage" href="http://www.imeji.org/" target="_blank" style="border: 0px none ;"> <img alt="Imeji logo" src="#{Navigation.domain}common/resources/cssFramework/themes/skin_zuse/images/logo_imeji2.gif" style="border: 0px none ;"/> </a></p>					
+					<p>in cooperation with<br/><a class="transimage" href="http://www.deutsches-museum.de/en" target="_blank" style="border: 0px none ;"> <img alt="Deutsches Museum logo" src="#{Navigation.domain}common/resources/cssFramework/themes/skin_zuse/images/dm_logo.png" style="border: 0px none ;"/> </a></p>
+					</div>
 				</div>
 			</h:panelGroup>
 	
 			<h:panelGroup id="deHome" styleClass="half_area0_p8 mainSection" rendered="#{SessionBean.locale == 'de'}">
 				<div class="free_area1" style="padding: 0px 10px 10px 0px; width: 100%;">
-					<p>Eine eSciDoc Anwendung zum Handling von Bildern zusammen mit ihren Metadaten</p>
-					<div class="free_area1" style="border-width: 1px; padding: 0px 15px 15px; width: 90%; border-top-style: groove;">
-						<br/>
-						<p class="background-color: green;" ><b>Was ist Imeji?</b></p>
-						<p>Imeji ist der Nachfolger der für die Projekte FACES und DIAMONDS verwendeten Software.</p> 
-						<p>Mit Imeji können Nutzer ihre eigenen Bildsammlungen und –Alben erstellen. Für jede Sammlung kann ein Metadaten Profil zur Beschreibung der Bild-Charakteristika unter Verwendung von unterschiedlichen Typen (Text, Nummern, kontrollierten Vokabularien, Daten, Lage oder URLs) und der Vergabe frei definierter Labels definiert werden. Dadurch werden komplexe Suchanfragen sowie eine facettierte Darstellung der Suchergebnisse ermöglicht.
-		Imeji besitzt einen einfachen und schnellen Upload von Bildern durch den Webbrowse. Metadaten können sowohl für einzelne wie auch mehrere Bilder komfortabel editiert, eine effiziente Pflege von großen Bildsammlungen ist gewährleistet. Freie Bildzusammenstellungen können als Alben erstellt und in Publikationen wiederverwendet werden, da Alben nach Veröffentlichung durch eine persistente Auszeichnung referenzierbar gemacht werden. 
-						</p>
+					<p><b>Konrad Zuse Internet Archive</b></p>
+					<div class="free_area1" style="border-width: 1px; padding: 0px 15px 15px; width: 90%; border-top-style: groove;"><br/>
+					<p><b>Wer war Konrad Zuse?</b></p>
+					<p>Konrad Zuse (1910-1995) hat den ersten programmgesteuerten Rechner der Welt gebaut. Seine Erfindungen, Patententwürfe, Vorträge und Vorlesungen hat er in den Jahren 1936 bis 1995 zu Papier gebracht.</p> 
 					</div>
 					<div class="free_area1" style="border-width: 1px; padding: 0px 15px 15px; width: 90%; border-top-style: groove;"><br/>
-						<p><b>Wie kann Imeji verwendet werden?</b></p>
-						<p>Browsing und Suchen ist möglich für jedermann. </p>
-						<p>Um mit Imeji zu arbeiten, Bilder hochzuladen und eigenen Sammlungen zu erstellen wird ein Nutzerkonto benötigt. Dieses können Sie per Mail an <a href="mailto:faces-support@gwdg.de">die Support Mailingliste</a> beantragen.</p> 
-						<p>Die Idee und der Name für Imeji wurden durch Diskussionen mit dem National Institute for Materials Science in Japan inspiriert. </p>
-					</div> 
-				<div class="free_area1" style="border-width: 1px; padding: 12px 15px 15px 10px; width: 90%; border-top-style: groove;">
-				<a href="http://www.mpdl.mpg.de/" target="_blank" style="border: 0px none ;"> <img alt="MPDL logo" src="https://zim02.gwdg.de/repos/faces/trunk/faces/faces_static/images/mpdl.png" style="border: 0px none ;"/> </a> &nbsp;
-				&nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.escidoc.org/" target="_blank" style="border: 0px none ;"> <img alt="eSciDoc logo" src="https://zim02.gwdg.de/repos/faces/trunk/faces/faces_static/images/escidoc_new.png" style="border: 0px none ;"/> </a> </div>
-				</div>
-			
-			</h:panelGroup>
+					<p><b>Was ist das Konrad Zuse Internet Archive?</b></p>
+					<p>Dieses Onlinearchiv bietet dem Forscher und interessierten Leser Einblick in die Dokumente, die das Lebenswerk Zuses aufzeichnen.</p>
+					</div>
+					<div class="free_area1" style="border-width: 1px; padding: 0px 15px 15px; width: 90%; border-top-style: groove;"><br/>
+					<p><b>Was ist ein Repositorium?</b></p>
+					<p>Das Konrad Zuse Internet Archive basiert auf einer Repositoriensoftware namens Imeji. Imeji wird von der Max Planck Digital Library entwickelt und wir beteiligen uns an der Weiterentwicklung.</p>
+					</div>
+					<div class="free_area1" style="border-width: 1px; padding: 12px 15px 15px 10px; width: 90%; border-top-style: groove;">
+					<p>supported by<br/><a class="transimage" href="http://www.dfg.de/" target="_blank" style="border: 0px none ;"> <img alt="DFG logo" src="http://www.zib.de/zuse/Inhalt/Wir/Sponsoren/dfg_logo_blau.png" style="border: 0px none ;"/> </a></p>										
+					<p>powered by<br/><a class="transimage" href="http://www.imeji.org/" target="_blank" style="border: 0px none ;"> <img alt="Imeji logo" src="#{Navigation.domain}common/resources/cssFramework/themes/skin_zuse/images/logo_imeji2.gif" style="border: 0px none ;"/> </a></p>					
+					<p>in cooperation with<br/><a class="transimage" href="http://www.deutsches-museum.de/" target="_blank" style="border: 0px none ;"> <img alt="Deutsches Museum logo" src="#{Navigation.domain}common/resources/cssFramework/themes/skin_zuse/images/dm_logo.png" style="border: 0px none ;"/> </a></p>
+					</div>
+				</div>			
+			</h:panelGroup>			
 		
 			<!-- Side Panels -->
-			<h:panelGroup styleClass="sideSectionArea">
-				
-				<h:panelGroup styleClass="free_area0_p8 sideSection">					
-						<div id="recentcomments" class="dsq-widget">
-							<h2 class="dsq-widget-title">#{msg.recent_comments}</h2>
-							<script type="text/javascript" src="http://zusearchive.disqus.com/recent_comments_widget.js?num_items=10" />
-						</div>		
-					
+			
+			<h:panelGroup styleClass="sideSectionArea">				
+				<h:panelGroup styleClass="free_area0_p8 sideSection">
+					<a class="transimage" href="http://www.zib.de/zuse/home.php/Gallery/Z1" target="_blank" style="border: 0px none ;"> <h:graphicImage value="#{Navigation.domain}common/resources/cssFramework/themes/skin_zuse/images/zuse.jpg"/></a>
+									
+					<div id="recentcomments" class="dsq-widget">
+						<h2 class="dsq-widget-title">#{msg.recent_comments}</h2>
+						<script type="text/javascript" src="http://zusearchive.disqus.com/recent_comments_widget.js?num_items=10" />
+					</div>		
 				</h:panelGroup>
 				 
 			</h:panelGroup>
