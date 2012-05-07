@@ -33,16 +33,6 @@ public class IngestController {
 	public IngestController(CollectionImeji collection, User user) {
 		this.ingestBean = new IngestBean(collection,user);
 	}
-
-	/**
-	 * Creates all meta data profiles from the input file
-	 * @param file
-	 * @return  a list of all meta data profiles
-	 * @deprecated
-	 */
-	public ArrayList<MetadataProfile> createMetadataProfiles(File file) {
-		return this.ingestBean.createMetadataProfiles(file);		
-	}
 	
 	/**
 	 * Creates all meta data profiles from the input stream

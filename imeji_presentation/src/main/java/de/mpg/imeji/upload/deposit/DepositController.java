@@ -128,17 +128,17 @@ public class DepositController
 		return f;	
     }
     
-    /**
-     * Creates meta data profile from a file
-     * @param collection
-     * @param user
-     * @param file
-     */
-    public void createMetadataProfilesVoid(CollectionImeji collection, User user, File file) {
-    	if(this.ingestController == null)
-    		this.setIngestController(new IngestController());
-    	this.getIngestController().createMetadataProfiles(file);    	
-    }
+//    /**
+//     * Creates meta data profile from a file
+//     * @param collection
+//     * @param user
+//     * @param file
+//     */
+//    public void createMetadataProfilesVoid(CollectionImeji collection, User user, File file) {
+//    	if(this.ingestController == null)
+//    		this.setIngestController(new IngestController());
+//    	this.getIngestController().createMetadataProfiles(file);    	
+//    }
     
     /**
      * Creates meta data profile from stream

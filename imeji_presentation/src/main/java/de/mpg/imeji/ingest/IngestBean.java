@@ -167,44 +167,28 @@ public class IngestBean
 	}
 	
 	
-	/**
-	 * Creating meta data profile from xml file
-	 * @deprecated
-	 */
-	public ArrayList<MetadataProfile> createMetadataProfiles(File xmlFile)
-	{
-		URI uri = null;
-
-		this.ingestHelper.extractXmlMDObjects(xmlFile);
-		this.mdProfiles = this.getMetadataProfiles(this.ingestHelper.getProfileNames(),this.ingestHelper.getMdObjs());
+//	
+	public void updateMetadataProfiles(InputStream xmlFileStream) {
+		ArrayList<Image> images = this.ingestHelper.fetchGenericFromXmlToImageObjectList(xmlFileStream);
 		
-		try {
-			for (MetadataProfile mdprofile : this.mdProfiles) {
-				uri = this.profileController.create(mdprofile);
-				logger.info("Meta data profile: "+uri.toString()+" created!");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return this.mdProfiles;
+		//this.imageController.searchImages(scList, sortCri)
+		//TODO is here for the searching issue.
 	}
+	
+	
 	
 	/**
 	 * Creating meta data profile from xml file
 	 */
 	public ArrayList<MetadataProfile> loadMetadataProfiles(InputStream xmlFileStream)
 	{
-		URI uri = null;
-
 		this.ingestHelper.extractXmlMDObjects4Zuse(xmlFileStream);
 		this.mdProfiles = this.getMetadataProfiles(this.ingestHelper.getProfileNames(),this.ingestHelper.getMdObjs());
+		
 		
 		this.mdsFiles.clear();
 		this.mdfFiles.clear();
 
-
-		
 		try {
 			for (MetadataProfile mdprofile : this.mdProfiles) {
 //				this.profileController.delete(mdprofile,this.sessionBean.getUser());
@@ -228,48 +212,6 @@ public class IngestBean
 			e.printStackTrace();
 		}
 		return this.mdProfiles;
-	}
-	
-	/**
-	 * Uploads the ingest file
-	 * @deprecated
-	 */
-	public void uploadIngestFile()
-	{
-		
-		StringBuffer curDir = new StringBuffer(System.getProperty("user.dir")+"\\attachments\\");
-		StringBuffer fileName = new StringBuffer("ZusePlan10Samples.xml");
-		
-//		// get active collection in fetch meta data profile
-//		this.collectionSession = (CollectionSessionBean) BeanHelper.getSessionBean(CollectionSessionBean.class);
-//		CollectionImeji colim = this.collectionSession.getActive();
-//		if(colim.getProfile() != null)
-//			System.out.println("Meta data profile id: "+colim.getProfile().getPath()+ "---"+curDir);
-//		else {
-//			System.out.println("Meta data profile id..." + curDir);
-//		}
-
-		File xmlFilename = new File(curDir.append(fileName).toString());
-		URI uri = null;
-
-		this.ingestHelper.extractXmlMDObjects(xmlFilename);
-		this.mdProfiles = this.getMetadataProfiles(this.ingestHelper.getProfileNames(),this.ingestHelper.getMdObjs());
-		this.colIme = this.collectionSessionBean.getActive();
-		
-		try {
-			for (MetadataProfile mdprofile : this.mdProfiles) {
-				uri = this.profileController.create(mdprofile);
-				this.profileController.update(mdprofile);
-				logger.info("Meta data profile: "+uri.toString()+" created!");
-			}						
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				
-		this.colIme.setProfile(uri);
-//		this.ingest();
 	}
 	
 	/**
@@ -308,7 +250,6 @@ public class IngestBean
 	 * @param mdObjs
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public MetadataProfile getMetadataProfile(XmlMDBean mdObj) {
 		MetadataProfile mdp = new MetadataProfile();
 		
