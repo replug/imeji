@@ -21,6 +21,8 @@ public class Navigation implements Serializable
     public final String frameworkUrl;
     // Url of the application
     public final String applicationUrl;
+ // Url of digilib frame framework
+    public final String digilibUrl;
     // Pages of Imeji
     public final Page HOME_PAGE = new Page("HomePage", "pictures");
     public final Page ABOUT = new Page("About", "about");
@@ -42,6 +44,11 @@ public class Navigation implements Serializable
     public final Page PERSON = new Page("person", "person");
     public final Page ALBUM_INTERFACE = new Page("Album Interface", "do");
     public final Page IMAGES = new Page("Images", "images");
+    public final Page KONRADZUSE = new Page("Konrad Zuse", "konradzuse");
+    public final Page PARTNERSANDCOLLABORATOR = new Page("Partners & Collaborators", "partnersandcollaborators");
+    public final Page ABOUTANDCONTACT = new Page("About and contact", "aboutandcontact");
+    public final Page IMPRINT = new Page("Imprint", "imprint");
+    
     private SessionBean sessionBean = null;
 
     public class Page implements Serializable
@@ -81,11 +88,28 @@ public class Navigation implements Serializable
     {
         frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
         applicationUrl = PropertyReader.getProperty("escidoc.imeji.instance.url");
+        digilibUrl = PropertyReader.getProperty("digilib.instance.url");
     }
 
     public String getDomain()
     {
     	return applicationUrl.replaceAll("imeji/", "");
+    }
+    
+    public String getAboutAndContactUrl() {
+    	return applicationUrl + ABOUTANDCONTACT.getFile();
+    }
+    
+    public String getKonradZuseUrl() {
+    	return applicationUrl + KONRADZUSE.getFile();
+    }
+
+    public String getPartnersAndCollaboratorsUrl() {
+    	return applicationUrl + PARTNERSANDCOLLABORATOR.getFile();
+    }
+    
+    public String getImprintUrl() {
+    	return applicationUrl + IMPRINT.getFile();
     }
     
     public String getAboutUrl()
@@ -123,6 +147,15 @@ public class Navigation implements Serializable
         return applicationUrl + HELP.getFile() + getContext();
     }
 
+    /**
+	 * @return the digilibUrl
+	 */
+	public String getDigilibUrl() {
+		if(digilibUrl.endsWith("/"))
+			return digilibUrl;
+		return digilibUrl + "/";		
+	}	
+    
     public String getApplicationUrl()
     {
         return applicationUrl;
