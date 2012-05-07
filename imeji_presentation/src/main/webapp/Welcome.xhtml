@@ -98,8 +98,12 @@
 			<!-- Side Panels -->
 			<h:panelGroup styleClass="sideSectionArea">
 				
-				<h:panelGroup styleClass="free_area0_p8 sideSection">
-					<ui:include src="homePages/BlogIntegration.jspf" />
+				<h:panelGroup styleClass="free_area0_p8 sideSection">					
+						<div id="recentcomments" class="dsq-widget">
+							<h2 class="dsq-widget-title">#{msg.recent_comments}</h2>
+							<script type="text/javascript" src="http://zusearchive.disqus.com/recent_comments_widget.js?num_items=10" />
+						</div>		
+					
 				</h:panelGroup>
 				 
 			</h:panelGroup>

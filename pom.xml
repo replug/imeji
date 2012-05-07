@@ -335,10 +335,10 @@
 
 											
 				<!--  Identifier of the content model "Imeji" in the current framework instance -->
-				<escidoc.imeji.content-model.id>escidoc:14001</escidoc.imeji.content-model.id>
+				<escidoc.imeji.content-model.id>escidoc:3</escidoc.imeji.content-model.id>
 				
 				<!-- Identifier of the context of "Imeji" in the current framework instance -->
-				<escidoc.imeji.context.id>escidoc:13001</escidoc.imeji.context.id>
+				<escidoc.imeji.context.id>escidoc:2</escidoc.imeji.context.id>
 				
 				<!--  Identifier of the content model " Imeji Container Content Model" in the current framework instance -->
 				<escidoc.imeji.container.content-model.id>escidoc:faces60</escidoc.imeji.container.content-model.id>
@@ -347,20 +347,20 @@
 				<escidoc.imeji.collection.content-model.id>escidoc:194286</escidoc.imeji.collection.content-model.id>
 				
 				<!-- Default number of image in the lists -->
-				<imeji.image.list.size>18</imeji.image.list.size>
+				<imeji.image.list.size>24</imeji.image.list.size>
 				
 				<!--  Options for number of image in the lists -->
-				<imeji.image.list.size.options>6,12,18,24,60,90,240</imeji.image.list.size.options>
+				<imeji.image.list.size.options>6,12,18,24,60,90,240,500</imeji.image.list.size.options>
 				
 				<!-- Default number of container in the lists -->
 				<imeji.container.list.size>10</imeji.container.list.size>
 				
 				<!--  Options for number of container in the lists -->
-				<imeji.container.list.size.options>5,10,15,20,50</imeji.container.list.size.options>
+				<imeji.container.list.size.options>5,10,15,20,50,100</imeji.container.list.size.options>
 				
 				<imeji.i18n.languages>en,de,ja</imeji.i18n.languages>
 				
-				<escidoc.cone.isos639_1.all>http://pubman.mpdl.mpg.de/cone/iso639-1/all</escidoc.cone.isos639_1.all>
+				<escidoc.cone.isos639_1.all>http://pubman.mpiwg-berlin.mpg.de/cone/iso639-1/all</escidoc.cone.isos639_1.all>
 						
 				<!-- Blog's URL -->
 				<escidoc.imeji.blog.url />
