@@ -228,5 +228,27 @@
 		<pattern value="/help"></pattern>
 		<view-id>/jsf/Help.xhtml</view-id>
 	</url-mapping>
+	
+	<!-- Zuse specific part UrlMappings -->
+	
+	<url-mapping id="aboutandcontact">
+		<pattern value="/aboutandcontact" />
+		<view-id>/jsf/ZuseAboutAndContact.xhtml</view-id>
+	</url-mapping>
+	
+	<url-mapping id="imprint">
+		<pattern value="/imprint" />
+		<view-id>/jsf/ZuseImprint.xhtml</view-id>
+	</url-mapping>
+	
+	<url-mapping id="konradzuse">
+		<pattern value="/konradzuse" />
+		<view-id>/jsf/ZuseKonradZuse.xhtml</view-id>
+	</url-mapping>
+	
+	<url-mapping id="partnersandcollaborators">
+		<pattern value="/partnersandcollaborators" />
+		<view-id>/jsf/ZusePartnersAndCollaborators.xhtml</view-id>
+	</url-mapping>
 
 </pretty-config>
