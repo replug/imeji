@@ -146,6 +146,119 @@ public class StaticContentBean
     }
     
     /**
+     * Get the HTML content of the Help page.
+     * URL of the Konrad Zuse page is defined in properties.
+     * @return
+     * @throws URISyntaxException 
+     * @throws IOException 
+     */
+    public String getKonradZuseDeContent() throws IOException, URISyntaxException
+    {    
+        String html = "";
+        
+        try
+        {
+            String helpProp = PropertyReader.getProperty("escidoc.imeji.konradzusepage.de.url");
+            html = getContent(new URL(helpProp));
+        }
+        catch (Exception e)
+        {
+            html = PropertyReader.getProperty("escidoc.imeji.help.url") + " couldn't be loaded. Url might be either wrong or protected."
+                    + "<br/><br/>"
+                    + "Error message:"
+                    + "<br/><br/>"
+                    + e.toString();
+        }
+
+        return html;
+    }
+    
+    /**
+     * Get the HTML content of the Help page.
+     * URL of the Konrad Zuse page is defined in properties.
+     * @return
+     * @throws URISyntaxException 
+     * @throws IOException 
+     */
+    public String getKonradZuseEnContent() throws IOException, URISyntaxException
+    {    
+        String html = "";
+        
+        try
+        {
+            String helpProp = PropertyReader.getProperty("escidoc.imeji.konradzusepage.en.url");
+            html = getContent(new URL(helpProp));
+        }
+        catch (Exception e)
+        {
+            html = PropertyReader.getProperty("escidoc.imeji.help.url") + " couldn't be loaded. Url might be either wrong or protected."
+                    + "<br/><br/>"
+                    + "Error message:"
+                    + "<br/><br/>"
+                    + e.toString();
+        }
+
+        return html;
+    }
+    
+    /**
+     * Get the HTML content of the Help page.
+     * URL of the partners and collaboraters page is defined in properties.
+     * @return
+     * @throws URISyntaxException 
+     * @throws IOException 
+     */
+    public String getPartnersAndCollaboratrosEnContent() throws IOException, URISyntaxException
+    {    
+        String html = "";
+        
+        try
+        {
+            String helpProp = PropertyReader.getProperty("escidoc.imeji.partnersandcollaboraters.en.url");
+            html = getContent(new URL(helpProp));
+        }
+        catch (Exception e)
+        {
+            html = PropertyReader.getProperty("escidoc.imeji.help.url") + " couldn't be loaded. Url might be either wrong or protected."
+                    + "<br/><br/>"
+                    + "Error message:"
+                    + "<br/><br/>"
+                    + e.toString();
+        }
+
+        return html;
+    }
+    
+    /**
+     * Get the HTML content of the Help page.
+     * URL of the partners and collaboraters page is defined in properties.
+     * @return
+     * @throws URISyntaxException 
+     * @throws IOException 
+     */
+    public String getPartnersAndCollaboratrosDeContent() throws IOException, URISyntaxException
+    {    
+        String html = "";
+        
+        try
+        {
+            String helpProp = PropertyReader.getProperty("escidoc.imeji.partnersandcollaboraters.de.url");
+            html = getContent(new URL(helpProp));
+        }
+        catch (Exception e)
+        {
+            html = PropertyReader.getProperty("escidoc.imeji.help.url") + " couldn't be loaded. Url might be either wrong or protected."
+                    + "<br/><br/>"
+                    + "Error message:"
+                    + "<br/><br/>"
+                    + e.toString();
+        }
+
+        return html;
+    }
+    
+    
+    /**
      * Get the HTML content of the Home page.
      * URL of the Home page is defined in properties.
      * @return

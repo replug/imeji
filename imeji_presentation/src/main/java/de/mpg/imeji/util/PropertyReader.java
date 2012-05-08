@@ -15,7 +15,8 @@ public class PropertyReader
 {
 	private static Properties properties;
 
-	private static final String DEFAULT_PROPERTY_FILE = "faces.properties";
+//	private static final String DEFAULT_PROPERTY_FILE = "faces.properties";
+	private static final String DEFAULT_PROPERTY_FILE = "imeji.properties";
 
 	private static URL solution;
 

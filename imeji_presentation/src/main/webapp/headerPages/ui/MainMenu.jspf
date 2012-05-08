@@ -73,9 +73,9 @@
 		
 		
 		<h:outputLink id="lnkaboutAndContact" styleClass="free_area0" value="#{Navigation.aboutAndContactUrl}" rendered="#{HistorySession.currentPage.type.fileName != 'ZuseAboutAndContact.xhtml'}">
-			<h:outputText value="#{lbl.about_and_contact}"></h:outputText>
+			<h:outputText value="#{lbl.header_about_and_contact}"></h:outputText>
 		</h:outputLink>
-		<h:outputText id="lnkaboutAndContactsInactive" styleClass="free_area0" value="#{lbl.about_and_contact}" rendered="#{HistorySession.currentPage.type.fileName == 'ZuseAboutAndContact.xhtml'}" />
+		<h:outputText id="lnkaboutAndContactsInactive" styleClass="free_area0" value="#{lbl.header_about_and_contact}" rendered="#{HistorySession.currentPage.type.fileName == 'ZuseAboutAndContact.xhtml'}" />
 		
 		
 		<h:outputLink id="lnkImprint" styleClass="free_area0" value="#{Navigation.imprintUrl}" rendered="#{HistorySession.currentPage.type.fileName != 'ZuseImprint.xhtml'}">
