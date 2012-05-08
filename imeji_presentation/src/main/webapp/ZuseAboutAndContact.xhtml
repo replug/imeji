@@ -43,10 +43,9 @@
 				<ui:define name="mainContent">
 				<div class="full_area0_p8 infoPage">
 					<!-- Main Content -->
-					<h2>#{lbl.about_us}</h2>
-										
-					<h2>#{lbl.contact_us}</h2>
-					#{lbl.email}: <img alt="Zuse mail" src="#{Navigation.domain}common/resources/cssFramework/themes/skin_zuse/images/zusemail.png" style="border: 0px none ;"/>
+					<div align="justify" style="font-size: 12pt; margin-left: 30px" >
+						<h:outputText escape="false" value="#{StaticContent.aboutAndContactContent}" />  
+					</div>					
 				</div>	
 				</ui:define>
 		</ui:composition>

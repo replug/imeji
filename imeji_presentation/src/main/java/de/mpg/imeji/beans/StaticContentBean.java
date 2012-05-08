@@ -17,6 +17,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.sun.facelets.FaceletContext;
+
+import de.mpg.imeji.util.BeanHelper;
 import de.mpg.imeji.util.PropertyReader;
 
 
@@ -152,18 +155,26 @@ public class StaticContentBean
      * @throws URISyntaxException 
      * @throws IOException 
      */
-    public String getKonradZuseDeContent() throws IOException, URISyntaxException
+    public String getKonradZuseContent() throws IOException, URISyntaxException
     {    
         String html = "";
         
+        SessionBean sb = (SessionBean)BeanHelper.getSessionBean(SessionBean.class);
+        String language = sb.getLocale().getLanguage().toLowerCase();
+        
+        String languages = PropertyReader.getProperty("imeji.i18n.languages");
+        
+        if(language == null || language.isEmpty() || languages.isEmpty() || !languages.contains(language))
+        	language = "en";
+        
         try
         {
-            String helpProp = PropertyReader.getProperty("escidoc.imeji.konradzusepage.de.url");
+            String helpProp = PropertyReader.getProperty("escidoc.imeji.konradzusepage."+language+".url");
             html = getContent(new URL(helpProp));
         }
         catch (Exception e)
         {
-            html = PropertyReader.getProperty("escidoc.imeji.help.url") + " couldn't be loaded. Url might be either wrong or protected."
+            html = PropertyReader.getProperty("escidoc.imeji.konradzusepage."+language+".url") + " couldn't be loaded. Url might be either wrong or protected."
                     + "<br/><br/>"
                     + "Error message:"
                     + "<br/><br/>"
@@ -175,23 +186,67 @@ public class StaticContentBean
     
     /**
      * Get the HTML content of the Help page.
-     * URL of the Konrad Zuse page is defined in properties.
+     * URL of the imprint page is defined in properties.
      * @return
      * @throws URISyntaxException 
      * @throws IOException 
      */
-    public String getKonradZuseEnContent() throws IOException, URISyntaxException
+    public String getImprintContent() throws IOException, URISyntaxException
     {    
         String html = "";
         
+        SessionBean sb = (SessionBean)BeanHelper.getSessionBean(SessionBean.class);
+        String language = sb.getLocale().getLanguage().toLowerCase();
+        
+        String languages = PropertyReader.getProperty("imeji.i18n.languages");
+        
+        if(language == null || language.isEmpty() || languages.isEmpty() || !languages.contains(language))
+        	language = "en";
+        
         try
         {
-            String helpProp = PropertyReader.getProperty("escidoc.imeji.konradzusepage.en.url");
+            String helpProp = PropertyReader.getProperty("escidoc.imeji.imprint."+language+".url");
             html = getContent(new URL(helpProp));
         }
         catch (Exception e)
         {
-            html = PropertyReader.getProperty("escidoc.imeji.help.url") + " couldn't be loaded. Url might be either wrong or protected."
+            html = PropertyReader.getProperty("escidoc.imeji.imprint."+language+".url") + " couldn't be loaded. Url might be either wrong or protected."
+                    + "<br/><br/>"
+                    + "Error message:"
+                    + "<br/><br/>"
+                    + e.toString();
+        }
+
+        return html;
+    }
+    
+    /**
+     * Get the HTML content of the Help page.
+     * URL of the about us and contact page is defined in properties.
+     * @return
+     * @throws URISyntaxException 
+     * @throws IOException 
+     */
+    public String getAboutAndContactContent() throws IOException, URISyntaxException
+    {    
+        String html = "";
+        
+        SessionBean sb = (SessionBean)BeanHelper.getSessionBean(SessionBean.class);
+        String language = sb.getLocale().getLanguage().toLowerCase();
+        
+        String languages = PropertyReader.getProperty("imeji.i18n.languages");
+        
+        if(language == null || language.isEmpty() || languages.isEmpty() || !languages.contains(language))
+        	language = "en";
+        
+        try
+        {
+            String helpProp = PropertyReader.getProperty("escidoc.imeji.aboutandcontact."+language+".url");
+            html = getContent(new URL(helpProp));
+        }
+        catch (Exception e)
+        {
+            html = PropertyReader.getProperty("escidoc.imeji.aboutandcontact."+language+".url") + " couldn't be loaded. Url might be either wrong or protected."
                     + "<br/><br/>"
                     + "Error message:"
                     + "<br/><br/>"
@@ -208,18 +263,26 @@ public class StaticContentBean
      * @throws URISyntaxException 
      * @throws IOException 
      */
-    public String getPartnersAndCollaboratrosEnContent() throws IOException, URISyntaxException
+    public String getPartnersAndCollaboratorsContent() throws IOException, URISyntaxException
     {    
         String html = "";
         
+        SessionBean sb = (SessionBean)BeanHelper.getSessionBean(SessionBean.class);
+        String language = sb.getLocale().getLanguage().toLowerCase();
+        
+        String languages = PropertyReader.getProperty("imeji.i18n.languages");
+        
+        if(language == null || language.isEmpty() || languages.isEmpty() || !languages.contains(language))
+        	language = "en";
+        
         try
         {
-            String helpProp = PropertyReader.getProperty("escidoc.imeji.partnersandcollaboraters.en.url");
+            String helpProp = PropertyReader.getProperty("escidoc.imeji.partnersandcollaboraters."+language+".url");
             html = getContent(new URL(helpProp));
         }
         catch (Exception e)
         {
-            html = PropertyReader.getProperty("escidoc.imeji.help.url") + " couldn't be loaded. Url might be either wrong or protected."
+            html = PropertyReader.getProperty("escidoc.imeji.partnersandcollaboraters."+language+".url") + " couldn't be loaded. Url might be either wrong or protected."
                     + "<br/><br/>"
                     + "Error message:"
                     + "<br/><br/>"
@@ -228,35 +291,6 @@ public class StaticContentBean
 
         return html;
     }
-    
-    /**
-     * Get the HTML content of the Help page.
-     * URL of the partners and collaboraters page is defined in properties.
-     * @return
-     * @throws URISyntaxException 
-     * @throws IOException 
-     */
-    public String getPartnersAndCollaboratrosDeContent() throws IOException, URISyntaxException
-    {    
-        String html = "";
-        
-        try
-        {
-            String helpProp = PropertyReader.getProperty("escidoc.imeji.partnersandcollaboraters.de.url");
-            html = getContent(new URL(helpProp));
-        }
-        catch (Exception e)
-        {
-            html = PropertyReader.getProperty("escidoc.imeji.help.url") + " couldn't be loaded. Url might be either wrong or protected."
-                    + "<br/><br/>"
-                    + "Error message:"
-                    + "<br/><br/>"
-                    + e.toString();
-        }
-
-        return html;
-    }
-    
     
     /**
      * Get the HTML content of the Home page.

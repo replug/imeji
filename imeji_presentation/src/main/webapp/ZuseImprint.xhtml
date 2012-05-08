@@ -43,22 +43,8 @@
 				<ui:define name="mainContent">
 				<div class="full_area0_p8 infoPage">
 					<!-- Main Content -->
-					<!-- ui:include src="homePages/BlogIntegration.jspf" / -->
-					
-					
-					<div align="justify" style="font-size: 12pt; margin-left: 30px" >						
-						#{msg.kz_addres_title} <br />
-						#{msg.kz_addres1} <br />
-						#{msg.kz_addres2} <br />
-						<br />
-						<br />
-						#{lbl.email}: <img src="http://autonomos.inf.fu-berlin.de/sites/default/files/mail_neu.jpg" alt="Email Impressum" />  <br />
-						<br />
-						<br />
-						#{lbl.phone}: +49 30 838 75 148 <br />
-						<br />
-						<br />
-						#{lbl.legal_notice}: #{msg.kz_legal_notice} <br />						
+					<div align="justify" style="font-size: 12pt; margin-left: 30px" >
+						<h:outputText escape="false" value="#{StaticContent.imprintContent}" />  
 					</div>
 				</div>	
 				</ui:define>
