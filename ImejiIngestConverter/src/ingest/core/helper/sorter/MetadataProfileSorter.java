@@ -3,10 +3,11 @@
  */
 package ingest.core.helper.sorter;
 
-import ingest.core.beans.metadata.MetadataProfile;
 
 import java.util.Comparator;
 import java.util.Enumeration;
+
+import de.fub.imeji.ingest.core.beans.metadata.MetadataProfile;
 
 /**
  * @author hnguyen

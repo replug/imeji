@@ -3,13 +3,14 @@
  */
 package ingest.core.helper.sorter;
 
-import ingest.core.beans.metadata.MetaDataEntity;
 
 import java.util.Comparator;
 import java.util.List;
 
 import org.jdom2.Attribute;
 import org.jdom2.Element;
+
+import de.fub.imeji.ingest.core.beans.metadata.MetaDataEntity;
 
 /**
  * @author hnguyen
