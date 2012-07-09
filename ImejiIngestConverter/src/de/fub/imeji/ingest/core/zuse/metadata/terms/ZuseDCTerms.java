@@ -1,6 +1,5 @@
 package de.fub.imeji.ingest.core.zuse.metadata.terms;
 
-import ingest.core.helper.validator.LocaleValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,7 @@ import org.jdom2.Namespace;
 import de.fub.imeji.ingest.core.beans.metadata.terms.DCTerms;
 import de.fub.imeji.ingest.core.beans.metadata.terms.Default;
 import de.fub.imeji.ingest.core.beans.metadata.terms.Terms;
+import de.fub.imeji.ingest.core.helper.validator.LocaleValidator;
 
 
 public class ZuseDCTerms extends DCTerms {

@@ -3,7 +3,6 @@
  */
 package de.fub.imeji.ingest.core.xml;
 
-import ingest.core.helper.sorter.ElementSorter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +30,7 @@ import de.fub.imeji.ingest.core.beans.metadata.MetaDataEntity;
 import de.fub.imeji.ingest.core.beans.metadata.MetadataProfile;
 import de.fub.imeji.ingest.core.beans.metadata.ProfileObject;
 import de.fub.imeji.ingest.core.beans.metadata.terms.Terms;
+import de.fub.imeji.ingest.core.helper.sorter.ElementSorter;
 import de.fub.imeji.ingest.core.zuse.metadata.terms.ZuseDCTerms;
 
 

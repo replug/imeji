@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ingest.core.helper.GenericTypes;
+package de.fub.imeji.ingest.core.helper.GenericTypes;
 
 /**
  * @author hnguyen

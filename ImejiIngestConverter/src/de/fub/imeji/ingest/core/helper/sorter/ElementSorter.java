@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ingest.core.helper.sorter;
+package de.fub.imeji.ingest.core.helper.sorter;
 
 
 import java.util.Comparator;

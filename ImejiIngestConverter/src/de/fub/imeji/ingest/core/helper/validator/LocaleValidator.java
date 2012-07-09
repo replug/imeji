@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ingest.core.helper.validator;
+package de.fub.imeji.ingest.core.helper.validator;
 
 import java.util.Locale;
 import java.util.MissingResourceException;
